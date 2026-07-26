@@ -32,9 +32,9 @@ class ReservoirForecaster:
         slope = sum((x - mx) * (y - my) for x, y in zip(xs, ys)) / denom
         return slope  # negative when draining
 
-    def hours_to_empty(self, current_volume_l: float) -> float:
+    def hours_to_empty(self, current_volume_l: float, cap_hours: float = 72.0) -> float:
         slope = self.drain_rate_l_per_min()
         if slope is None or slope >= -1e-6:
-            return 999.0  # not draining (or refilling)
+            return cap_hours  # not draining -> report the healthy ceiling, not a sentinel
         minutes = current_volume_l / (-slope)
-        return round(minutes / 60.0, 2)
+        return round(min(cap_hours, minutes / 60.0), 2)

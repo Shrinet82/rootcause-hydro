@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>RootCause · Grow Room Mission Control</title>
+<style>
+  :root{
+    --bg:#080b11; --panel:#0f1621; --panel2:#131c2a; --line:#1e2a3a;
+    --text:#e6edf3; --muted:#8b98a8; --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    --ok:#2bbf6a; --warn:#f5a623; --crit:#ff4d4f; --idle:#5f6f82; --accent:#35d0d6;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:radial-gradient(1200px 600px at 70% -10%,#0d1622,var(--bg));
+    color:var(--text);font-family:Inter,-apple-system,Segoe UI,Roboto,sans-serif;padding:22px 32px 40px}
+  a{color:var(--accent)}
+  header{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:14px}
+  .brand{display:flex;align-items:center;gap:12px}
+  .brand h1{font-size:20px;margin:0;letter-spacing:.3px}
+  .brand .sub{color:var(--muted);font-size:12px;font-family:var(--mono)}
+  .clock{font-family:var(--mono);color:var(--muted);font-size:13px;text-align:right}
+  .clock b{color:var(--text)}
+  .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--ok);
+    margin-right:6px;box-shadow:0 0 8px var(--ok)}
+  .dot.off{background:var(--idle);box-shadow:none}
+  .banner{border-radius:12px;padding:12px 18px;margin:6px 0 20px;font-weight:600;
+    display:flex;align-items:center;gap:12px;border:1px solid var(--line);background:var(--panel)}
+  .banner.ok{color:var(--ok);border-color:#12351f;background:#0c1a12}
+  .banner.crit{color:#fff;background:linear-gradient(90deg,#3a0f10,#1a0c0d);border-color:#5a1a1c;
+    animation:pulse 1.4s ease-in-out infinite}
+  @keyframes pulse{50%{box-shadow:0 0 0 3px rgba(255,77,79,.15)}}
+  .chip{font-family:var(--mono);font-size:12px;background:#2a1113;color:#ff8b8d;
+    border:1px solid #5a1a1c;border-radius:999px;padding:2px 10px}
+  .grid{display:grid;gap:16px}
+  .gauges{grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin-bottom:16px}
+  .tiles{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;
+    display:flex;flex-direction:column;align-items:center;gap:8px}
+  .card .lbl{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.6px}
+  .card .tgt{color:var(--muted);font-size:11px;font-family:var(--mono)}
+  .gauge{position:relative;width:132px;height:132px}
+  .gauge svg{transform:rotate(-90deg)}
+  .gauge .val{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;
+    justify-content:center;font-family:var(--mono)}
+  .gauge .num{font-size:26px;font-weight:700}
+  .gauge .unit{font-size:11px;color:var(--muted)}
+  .tile .num{font-family:var(--mono);font-size:30px;font-weight:700}
+  .tile .unit{font-size:12px;color:var(--muted)}
+  .tank{width:70px;height:120px;border:2px solid var(--line);border-radius:10px;position:relative;
+    overflow:hidden;background:#0b1220}
+  .tank .fill{position:absolute;bottom:0;left:0;right:0;transition:height .6s,background .4s}
+  .tank .pct{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    font-family:var(--mono);font-weight:700;font-size:18px;text-shadow:0 1px 3px #000}
+  .controls{margin-top:24px;border-top:1px solid var(--line);padding-top:16px}
+  .controls h3{font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin:0 0 10px}
+  .btns{display:flex;flex-wrap:wrap;gap:10px}
+  button{font-family:inherit;font-size:13px;font-weight:600;color:var(--text);cursor:pointer;
+    background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:9px 14px;transition:.15s}
+  button:hover{border-color:var(--crit);color:#ffb4b5}
+  button.clear{border-color:#13351f;color:var(--ok)}
+  button.clear:hover{background:#0c1a12}
+  footer{margin-top:26px;color:var(--muted);font-size:12px;display:flex;justify-content:space-between;
+    flex-wrap:wrap;gap:10px;border-top:1px solid var(--line);padding-top:14px}
+  .signoz{font-family:var(--mono)}
+</style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <span style="font-size:26px">🌱</span>
+      <div>
+        <h1>RootCause · Grow Room Mission Control</h1>
+        <div class="sub" id="meta">zone-a · lettuce · veg</div>
+      </div>
+    </div>
+    <div class="clock">
+      <div><span class="dot" id="conn"></span><span id="conntext">connecting…</span></div>
+      <div>sim day <b id="simday">–</b> · <b id="simtime">--:--</b> · lights <b id="lights">–</b></div>
+    </div>
+  </header>
+
+  <div class="banner ok" id="banner">✓ ALL SYSTEMS NOMINAL</div>
+
+  <div class="grid gauges" id="gauges"></div>
+
+  <div class="grid tiles" id="tiles"></div>
+
+  <div class="controls">
+    <h3>Fault injection (drives the live SigNoz alerts &amp; traces)</h3>
+    <div class="btns" id="btns"></div>
+  </div>
+
+  <footer>
+    <div>Observability backend: <span class="signoz">SigNoz</span> — traces, logs, metrics &amp; alerts.
+      <a href="http://localhost:8080" target="_blank" rel="noopener">Open SigNoz ↗</a></div>
+    <div>RootCause · simulated farm · real OpenTelemetry</div>
+  </footer>
+
+<script>
+// ---- gauge + tile config; bands drive colour ----
+const GAUGES = [
+  {key:"ph",           label:"pH",            unit:"",      min:4, max:8,  ok:[5.8,6.2], warn:[5.5,6.5]},
+  {key:"ec",           label:"EC",            unit:"mS/cm", min:0, max:3,  ok:[1.4,2.0], warn:[1.2,2.4]},
+  {key:"water_temp_c", label:"Water Temp",    unit:"°C",    min:10,max:30, ok:[16,22],   warn:[14,24]},
+  {key:"do_mg_l",      label:"Dissolved O₂",  unit:"mg/L",  min:0, max:12, ok:[6,12],    warn:[5,12]},
+];
+const TILES = [
+  {key:"__level",  label:"Water Level",  unit:"%",     kind:"tank"},
+  {key:"__hte",    label:"Hours to Empty",unit:"h",    kind:"tile", ok:[12,999], warn:[3,12]},
+  {key:"pump_flow_l_min",label:"Pump Flow",unit:"L/min",kind:"tile", crit0:true},
+  {key:"reservoir_volume_l",label:"Reservoir",unit:"L",kind:"tile"},
+  {key:"air_temp_c",label:"Air Temp",    unit:"°C",    kind:"tile"},
+  {key:"humidity_pct",label:"Humidity",  unit:"%",     kind:"tile"},
+  {key:"co2_ppm",  label:"CO₂",          unit:"ppm",   kind:"tile"},
+  {key:"light_ppfd",label:"Light",       unit:"PPFD",  kind:"tile"},
+];
+const FAULTS = ["heatwave","pump_failure","ph_drift","leak","nutrient_burn","sensor_glitch"];
+const C = getComputedStyle(document.documentElement);
+const COL = k => C.getPropertyValue("--"+k).trim();
+
+function state(cfg, v){
+  if(v===null||v===undefined||Number.isNaN(v)) return "idle";
+  if(cfg.crit0 && v<0.1) return "crit";
+  if(cfg.ok && v>=cfg.ok[0] && v<=cfg.ok[1]) return "ok";
+  if(cfg.warn && v>=cfg.warn[0] && v<=cfg.warn[1]) return "warn";
+  if(cfg.ok||cfg.warn) return "crit";
+  return "ok";
+}
+const R=52, CIRC=2*Math.PI*R;
+
+function buildGauges(){
+  const el=document.getElementById("gauges");
+  el.innerHTML = GAUGES.map(g=>`
+    <div class="card">
+      <div class="lbl">${g.label}</div>
+      <div class="gauge">
+        <svg width="132" height="132" viewBox="0 0 132 132">
+          <circle cx="66" cy="66" r="${R}" fill="none" stroke="${COL('line')}" stroke-width="12"/>
+          <circle id="arc-${g.key}" cx="66" cy="66" r="${R}" fill="none" stroke="${COL('idle')}"
+            stroke-width="12" stroke-linecap="round" stroke-dasharray="${CIRC}" stroke-dashoffset="${CIRC}"/>
+        </svg>
+        <div class="val"><span class="num" id="num-${g.key}">–</span><span class="unit">${g.unit}</span></div>
+      </div>
+      <div class="tgt">healthy ${g.ok[0]}–${g.ok[1]}${g.unit}</div>
+    </div>`).join("");
+}
+function buildTiles(){
+  const el=document.getElementById("tiles");
+  el.innerHTML = TILES.map(t=> t.kind==="tank" ? `
+    <div class="card">
+      <div class="lbl">${t.label}</div>
+      <div class="tank"><div class="fill" id="tank-fill"></div><div class="pct" id="tank-pct">–</div></div>
+      <div class="tgt">healthy &gt; 40%</div>
+    </div>` : `
+    <div class="card tile">
+      <div class="lbl">${t.label}</div>
+      <div class="num" id="tile-${t.key}">–</div>
+      <div class="unit">${t.unit}</div>
+    </div>`).join("");
+}
+function buildButtons(){
+  const el=document.getElementById("btns");
+  el.innerHTML = FAULTS.map(f=>`<button data-f="${f}">⚠ ${f.replace("_"," ")}</button>`).join("")
+    + `<button class="clear" data-f="__clear">✓ clear all</button>`;
+  el.querySelectorAll("button").forEach(b=>b.onclick=()=>{
+    const f=b.dataset.f;
+    fetch(f==="__clear"?"/clear":"/fault/"+f,{method:"POST"}).then(refresh);
+  });
+}
+
+function setGauge(g, v){
+  const arc=document.getElementById("arc-"+g.key), num=document.getElementById("num-"+g.key);
+  const st=state(g,v), col=COL(st);
+  let frac=(v-g.min)/(g.max-g.min); frac=Math.max(0,Math.min(1,frac));
+  arc.style.stroke=col; arc.style.strokeDashoffset=CIRC*(1-frac);
+  num.textContent = (v===null||Number.isNaN(v))?"–":(Math.abs(v)>=100?v.toFixed(0):v.toFixed(2));
+  num.style.color=col;
+}
+function setTile(t, v){
+  const st=state(t,v), col=(t.ok||t.warn||t.crit0)?COL(st):COL("text");
+  const e=document.getElementById("tile-"+t.key); if(!e)return;
+  e.textContent=(v===null||Number.isNaN(v))?"–":(Math.abs(v)>=100?v.toFixed(0):v.toFixed(1));
+  e.style.color=col;
+}
+function setTank(pct){
+  const f=document.getElementById("tank-fill"), p=document.getElementById("tank-pct");
+  const st=state({ok:[40,100],warn:[20,40]},pct);
+  f.style.height=Math.max(0,Math.min(100,pct))+"%"; f.style.background=COL(st);
+  p.textContent=pct.toFixed(0)+"%";
+}
+
+let live=false;
+async function refresh(){
+  try{
+    const r=await fetch("/status",{cache:"no-store"}); const d=await r.json();
+    live=true;
+    const s=d.state;
+    GAUGES.forEach(g=>setGauge(g, s[g.key]));
+    TILES.forEach(t=>{
+      if(t.key==="__level") setTank(s.water_level_pct);
+      else if(t.key==="__hte") setTile(t, d.hours_to_empty);
+      else setTile(t, s[t.key]);
+    });
+    // header
+    document.getElementById("meta").textContent = `${(d.zone||"zone-a")} · lettuce · veg · tick ${d.tick}`;
+    const h=Math.floor(d.hour_of_day), m=Math.floor((d.hour_of_day%1)*60);
+    document.getElementById("simtime").textContent = String(h).padStart(2,"0")+":"+String(m).padStart(2,"0");
+    document.getElementById("simday").textContent = Math.floor(d.sim_minutes/1440)+1;
+    document.getElementById("lights").textContent = d.lights;
+    document.getElementById("conn").className="dot"; document.getElementById("conntext").textContent="live";
+    // banner
+    const b=document.getElementById("banner");
+    if(d.active_faults && d.active_faults.length){
+      b.className="banner crit";
+      b.innerHTML="⚠ ACTIVE INCIDENT "+d.active_faults.map(f=>`<span class="chip">${f}</span>`).join(" ");
+    }else{
+      b.className="banner ok"; b.textContent="✓ ALL SYSTEMS NOMINAL";
+    }
+  }catch(e){
+    document.getElementById("conn").className="dot off";
+    document.getElementById("conntext").textContent="disconnected";
+  }
+}
+buildGauges(); buildTiles(); buildButtons(); refresh(); setInterval(refresh,1500);
+</script>
+</body>
+</html>

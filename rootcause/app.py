@@ -8,6 +8,7 @@ from __future__ import annotations
 import asyncio
 import contextlib
 from dataclasses import dataclass
+from pathlib import Path
 
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import HTMLResponse
@@ -109,18 +110,15 @@ async def lifespan(app: FastAPI):
         telemetry.shutdown()
 
 
+_DASHBOARD_HTML = (Path(__file__).parent / "dashboard.html").read_text(encoding="utf-8")
+
 app = FastAPI(title="RootCause -- Hydroponic Mission Control", lifespan=lifespan)
 
 
 @app.get("/", response_class=HTMLResponse)
 def index():
-    return (
-        "<h2>RootCause -- Hydroponic Mission Control</h2>"
-        "<p>Telemetry is streaming to SigNoz. Try:</p><ul>"
-        "<li>GET <code>/status</code></li>"
-        "<li>POST <code>/fault/{name}</code> -- " + ", ".join(sorted(KNOWN_FAULTS)) + "</li>"
-        "<li>POST <code>/clear</code></li></ul>"
-    )
+    """The bespoke Grow Room Mission Control operator screen (live gauges)."""
+    return _DASHBOARD_HTML
 
 
 @app.get("/status")
@@ -128,6 +126,8 @@ def status():
     rt: Runtime = app.state.rt
     return {
         "tick": rt.tick,
+        "zone": rt.twin.zone,
+        "dosing": rt.controller.last,
         "sim_minutes": round(rt.twin.s.sim_minutes, 1),
         "hour_of_day": round(rt.twin.hour_of_day, 2),
         "lights": "on" if rt.twin.is_light else "off",

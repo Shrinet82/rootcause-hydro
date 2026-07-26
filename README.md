@@ -65,11 +65,19 @@ python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 
 cp .env.example .env          # then set OTEL_EXPORTER_OTLP_ENDPOINT to your SigNoz
-python -m rootcause.run       # streams telemetry + serves the control API on :8099
+python -m rootcause.run       # streams telemetry + serves Mission Control on :8099
 ```
 
 Within a minute you'll see the `rootcause-hydro` service in SigNoz with metrics flowing and
-`dosing.cycle` traces appearing. Then create the dashboards and drive a demo:
+`dosing.cycle` traces appearing.
+
+**Open http://localhost:8099** for the **Grow Room Mission Control** screen — a live operator
+dashboard with radial gauges (pH, EC, water temp, O₂), a reservoir tank, an incident banner,
+and **fault-injection buttons**. SigNoz stays the observability backend (traces, logs,
+metrics, alerts); this is the grower's glance-screen on top of it, and it fills the one gap
+SigNoz has for a farm wall-display: **radial gauges**.
+
+Then create the dashboards and drive a demo:
 
 ```bash
 # create dashboards in SigNoz (or import signoz/dashboards/*.json from the UI)
