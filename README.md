@@ -91,8 +91,16 @@ python -m rootcause.cli clear
 `hydro.reservoir_volume` · `hydro.light_ppfd` · `hydro.co2` · `hydro.pump_flow` ·
 `hydro.reservoir.hours_to_empty`
 
-**Dashboards** (`signoz/dashboards/`, import from the UI or via `--create`):
-Grow Room Overview · Reservoir & Dosing · Plant-Health SLO.
+**Dashboards** (`signoz/dashboards/`, import from the UI or via `--create`) — panel types
+are matched to each signal, not one-chart-fits-all:
+- **Grow Room Overview** — current vitals as **Value** tiles (threshold-coloured
+  green/amber/red) + pH/EC **trend** lines.
+- **Reservoir & Dosing** — reservoir/pump **Value** tiles + nutrient & pump **trends**.
+- **Plant-Health SLO** — a **Table** scorecard (metric · current · target) + SLO trend lines.
+
+> Colours come from per-panel thresholds. If your SigNoz version rejects the threshold
+> block on import, regenerate without it:
+> `python signoz/apply_signoz.py --write-json --no-thresholds`.
 
 **Alerts** (`python signoz/apply_signoz.py` prints the full list):
 

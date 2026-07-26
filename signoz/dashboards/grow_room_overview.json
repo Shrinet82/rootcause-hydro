@@ -1,6 +1,6 @@
 {
   "title": "RootCause - Grow Room Overview",
-  "description": "Golden signals for the reservoir. Green = healthy band.",
+  "description": "Vitals at a glance. Value tiles for now, trends below.",
   "tags": [
     "rootcause",
     "hydroponics"
@@ -10,40 +10,54 @@
       "i": "w0",
       "x": 0,
       "y": 0,
-      "w": 6,
+      "w": 3,
       "h": 3
     },
     {
       "i": "w1",
-      "x": 6,
+      "x": 3,
       "y": 0,
-      "w": 6,
+      "w": 3,
       "h": 3
     },
     {
       "i": "w2",
-      "x": 0,
-      "y": 3,
-      "w": 6,
+      "x": 6,
+      "y": 0,
+      "w": 3,
       "h": 3
     },
     {
       "i": "w3",
-      "x": 6,
-      "y": 3,
-      "w": 6,
+      "x": 9,
+      "y": 0,
+      "w": 3,
       "h": 3
     },
     {
       "i": "w4",
       "x": 0,
-      "y": 6,
-      "w": 6,
+      "y": 3,
+      "w": 3,
       "h": 3
     },
     {
       "i": "w5",
+      "x": 3,
+      "y": 3,
+      "w": 3,
+      "h": 3
+    },
+    {
+      "i": "w6",
       "x": 6,
+      "y": 3,
+      "w": 6,
+      "h": 3
+    },
+    {
+      "i": "w7",
+      "x": 0,
       "y": 6,
       "w": 6,
       "h": 3
@@ -53,6 +67,458 @@
     {
       "id": "w0",
       "title": "pH",
+      "description": "",
+      "panelTypes": "value",
+      "yAxisUnit": "none",
+      "query": {
+        "queryType": "builder",
+        "promql": [],
+        "clickhouse_sql": [],
+        "builder": {
+          "queryData": [
+            {
+              "dataSource": "metrics",
+              "queryName": "A",
+              "expression": "A",
+              "aggregateOperator": "avg",
+              "timeAggregation": "avg",
+              "spaceAggregation": "avg",
+              "aggregateAttribute": {
+                "key": "hydro.ph",
+                "dataType": "float64",
+                "type": "Gauge",
+                "isColumn": true
+              },
+              "filters": {
+                "op": "AND",
+                "items": []
+              },
+              "groupBy": [],
+              "having": [],
+              "functions": [],
+              "orderBy": [],
+              "legend": "pH",
+              "reduceTo": "last",
+              "stepInterval": 60,
+              "disabled": false
+            }
+          ],
+          "queryFormulas": []
+        }
+      },
+      "thresholds": [
+        {
+          "index": "7c3ef1f3",
+          "keyIndex": 0,
+          "moveThreshold": 0,
+          "selectedGraph": "value",
+          "thresholdColor": "#ff4d4f",
+          "thresholdFormat": "Number",
+          "thresholdLabel": "high",
+          "thresholdOperator": ">=",
+          "thresholdTableOptions": "",
+          "thresholdUnit": "",
+          "thresholdValue": 6.5
+        },
+        {
+          "index": "2573efca",
+          "keyIndex": 0,
+          "moveThreshold": 0,
+          "selectedGraph": "value",
+          "thresholdColor": "#f5a623",
+          "thresholdFormat": "Number",
+          "thresholdLabel": "warn",
+          "thresholdOperator": ">=",
+          "thresholdTableOptions": "",
+          "thresholdUnit": "",
+          "thresholdValue": 6.2
+        },
+        {
+          "index": "440b7802",
+          "keyIndex": 0,
+          "moveThreshold": 0,
+          "selectedGraph": "value",
+          "thresholdColor": "#ff4d4f",
+          "thresholdFormat": "Number",
+          "thresholdLabel": "low",
+          "thresholdOperator": "<=",
+          "thresholdTableOptions": "",
+          "thresholdUnit": "",
+          "thresholdValue": 5.5
+        },
+        {
+          "index": "a1c8cb3d",
+          "keyIndex": 0,
+          "moveThreshold": 0,
+          "selectedGraph": "value",
+          "thresholdColor": "#f5a623",
+          "thresholdFormat": "Number",
+          "thresholdLabel": "warn",
+          "thresholdOperator": "<=",
+          "thresholdTableOptions": "",
+          "thresholdUnit": "",
+          "thresholdValue": 5.8
+        }
+      ]
+    },
+    {
+      "id": "w1",
+      "title": "EC (mS/cm)",
+      "description": "",
+      "panelTypes": "value",
+      "yAxisUnit": "none",
+      "query": {
+        "queryType": "builder",
+        "promql": [],
+        "clickhouse_sql": [],
+        "builder": {
+          "queryData": [
+            {
+              "dataSource": "metrics",
+              "queryName": "A",
+              "expression": "A",
+              "aggregateOperator": "avg",
+              "timeAggregation": "avg",
+              "spaceAggregation": "avg",
+              "aggregateAttribute": {
+                "key": "hydro.ec",
+                "dataType": "float64",
+                "type": "Gauge",
+                "isColumn": true
+              },
+              "filters": {
+                "op": "AND",
+                "items": []
+              },
+              "groupBy": [],
+              "having": [],
+              "functions": [],
+              "orderBy": [],
+              "legend": "EC (mS/cm)",
+              "reduceTo": "last",
+              "stepInterval": 60,
+              "disabled": false
+            }
+          ],
+          "queryFormulas": []
+        }
+      },
+      "thresholds": [
+        {
+          "index": "2a33424a",
+          "keyIndex": 0,
+          "moveThreshold": 0,
+          "selectedGraph": "value",
+          "thresholdColor": "#ff4d4f",
+          "thresholdFormat": "Number",
+          "thresholdLabel": "burn",
+          "thresholdOperator": ">=",
+          "thresholdTableOptions": "",
+          "thresholdUnit": "",
+          "thresholdValue": 2.4
+        },
+        {
+          "index": "9ea6b247",
+          "keyIndex": 0,
+          "moveThreshold": 0,
+          "selectedGraph": "value",
+          "thresholdColor": "#ff4d4f",
+          "thresholdFormat": "Number",
+          "thresholdLabel": "starve",
+          "thresholdOperator": "<=",
+          "thresholdTableOptions": "",
+          "thresholdUnit": "",
+          "thresholdValue": 1.2
+        }
+      ]
+    },
+    {
+      "id": "w2",
+      "title": "Water Temp",
+      "description": "",
+      "panelTypes": "value",
+      "yAxisUnit": "celsius",
+      "query": {
+        "queryType": "builder",
+        "promql": [],
+        "clickhouse_sql": [],
+        "builder": {
+          "queryData": [
+            {
+              "dataSource": "metrics",
+              "queryName": "A",
+              "expression": "A",
+              "aggregateOperator": "avg",
+              "timeAggregation": "avg",
+              "spaceAggregation": "avg",
+              "aggregateAttribute": {
+                "key": "hydro.water_temp",
+                "dataType": "float64",
+                "type": "Gauge",
+                "isColumn": true
+              },
+              "filters": {
+                "op": "AND",
+                "items": []
+              },
+              "groupBy": [],
+              "having": [],
+              "functions": [],
+              "orderBy": [],
+              "legend": "Water Temp",
+              "reduceTo": "last",
+              "stepInterval": 60,
+              "disabled": false
+            }
+          ],
+          "queryFormulas": []
+        }
+      },
+      "thresholds": [
+        {
+          "index": "f1d3ca64",
+          "keyIndex": 0,
+          "moveThreshold": 0,
+          "selectedGraph": "value",
+          "thresholdColor": "#ff4d4f",
+          "thresholdFormat": "Number",
+          "thresholdLabel": "root rot",
+          "thresholdOperator": ">=",
+          "thresholdTableOptions": "",
+          "thresholdUnit": "",
+          "thresholdValue": 24
+        },
+        {
+          "index": "6b33bd51",
+          "keyIndex": 0,
+          "moveThreshold": 0,
+          "selectedGraph": "value",
+          "thresholdColor": "#f5a623",
+          "thresholdFormat": "Number",
+          "thresholdLabel": "warm",
+          "thresholdOperator": ">=",
+          "thresholdTableOptions": "",
+          "thresholdUnit": "",
+          "thresholdValue": 22
+        }
+      ]
+    },
+    {
+      "id": "w3",
+      "title": "Dissolved O2 (mg/L)",
+      "description": "",
+      "panelTypes": "value",
+      "yAxisUnit": "none",
+      "query": {
+        "queryType": "builder",
+        "promql": [],
+        "clickhouse_sql": [],
+        "builder": {
+          "queryData": [
+            {
+              "dataSource": "metrics",
+              "queryName": "A",
+              "expression": "A",
+              "aggregateOperator": "avg",
+              "timeAggregation": "avg",
+              "spaceAggregation": "avg",
+              "aggregateAttribute": {
+                "key": "hydro.dissolved_oxygen",
+                "dataType": "float64",
+                "type": "Gauge",
+                "isColumn": true
+              },
+              "filters": {
+                "op": "AND",
+                "items": []
+              },
+              "groupBy": [],
+              "having": [],
+              "functions": [],
+              "orderBy": [],
+              "legend": "Dissolved O2 (mg/L)",
+              "reduceTo": "last",
+              "stepInterval": 60,
+              "disabled": false
+            }
+          ],
+          "queryFormulas": []
+        }
+      },
+      "thresholds": [
+        {
+          "index": "ab275da6",
+          "keyIndex": 0,
+          "moveThreshold": 0,
+          "selectedGraph": "value",
+          "thresholdColor": "#ff4d4f",
+          "thresholdFormat": "Number",
+          "thresholdLabel": "suffocating",
+          "thresholdOperator": "<=",
+          "thresholdTableOptions": "",
+          "thresholdUnit": "",
+          "thresholdValue": 5
+        },
+        {
+          "index": "584380e7",
+          "keyIndex": 0,
+          "moveThreshold": 0,
+          "selectedGraph": "value",
+          "thresholdColor": "#f5a623",
+          "thresholdFormat": "Number",
+          "thresholdLabel": "low",
+          "thresholdOperator": "<=",
+          "thresholdTableOptions": "",
+          "thresholdUnit": "",
+          "thresholdValue": 6
+        }
+      ]
+    },
+    {
+      "id": "w4",
+      "title": "Water Level (%)",
+      "description": "",
+      "panelTypes": "value",
+      "yAxisUnit": "percent",
+      "query": {
+        "queryType": "builder",
+        "promql": [],
+        "clickhouse_sql": [],
+        "builder": {
+          "queryData": [
+            {
+              "dataSource": "metrics",
+              "queryName": "A",
+              "expression": "A",
+              "aggregateOperator": "avg",
+              "timeAggregation": "avg",
+              "spaceAggregation": "avg",
+              "aggregateAttribute": {
+                "key": "hydro.water_level",
+                "dataType": "float64",
+                "type": "Gauge",
+                "isColumn": true
+              },
+              "filters": {
+                "op": "AND",
+                "items": []
+              },
+              "groupBy": [],
+              "having": [],
+              "functions": [],
+              "orderBy": [],
+              "legend": "Water Level (%)",
+              "reduceTo": "last",
+              "stepInterval": 60,
+              "disabled": false
+            }
+          ],
+          "queryFormulas": []
+        }
+      },
+      "thresholds": [
+        {
+          "index": "3ef3cf46",
+          "keyIndex": 0,
+          "moveThreshold": 0,
+          "selectedGraph": "value",
+          "thresholdColor": "#ff4d4f",
+          "thresholdFormat": "Number",
+          "thresholdLabel": "low",
+          "thresholdOperator": "<=",
+          "thresholdTableOptions": "",
+          "thresholdUnit": "",
+          "thresholdValue": 20
+        },
+        {
+          "index": "fc640937",
+          "keyIndex": 0,
+          "moveThreshold": 0,
+          "selectedGraph": "value",
+          "thresholdColor": "#f5a623",
+          "thresholdFormat": "Number",
+          "thresholdLabel": "watch",
+          "thresholdOperator": "<=",
+          "thresholdTableOptions": "",
+          "thresholdUnit": "",
+          "thresholdValue": 40
+        }
+      ]
+    },
+    {
+      "id": "w5",
+      "title": "Hours to Empty",
+      "description": "",
+      "panelTypes": "value",
+      "yAxisUnit": "h",
+      "query": {
+        "queryType": "builder",
+        "promql": [],
+        "clickhouse_sql": [],
+        "builder": {
+          "queryData": [
+            {
+              "dataSource": "metrics",
+              "queryName": "A",
+              "expression": "A",
+              "aggregateOperator": "avg",
+              "timeAggregation": "avg",
+              "spaceAggregation": "avg",
+              "aggregateAttribute": {
+                "key": "hydro.reservoir.hours_to_empty",
+                "dataType": "float64",
+                "type": "Gauge",
+                "isColumn": true
+              },
+              "filters": {
+                "op": "AND",
+                "items": []
+              },
+              "groupBy": [],
+              "having": [],
+              "functions": [],
+              "orderBy": [],
+              "legend": "Hours to Empty",
+              "reduceTo": "last",
+              "stepInterval": 60,
+              "disabled": false
+            }
+          ],
+          "queryFormulas": []
+        }
+      },
+      "thresholds": [
+        {
+          "index": "e975b49f",
+          "keyIndex": 0,
+          "moveThreshold": 0,
+          "selectedGraph": "value",
+          "thresholdColor": "#ff4d4f",
+          "thresholdFormat": "Number",
+          "thresholdLabel": "critical",
+          "thresholdOperator": "<=",
+          "thresholdTableOptions": "",
+          "thresholdUnit": "",
+          "thresholdValue": 3
+        },
+        {
+          "index": "20e0629e",
+          "keyIndex": 0,
+          "moveThreshold": 0,
+          "selectedGraph": "value",
+          "thresholdColor": "#f5a623",
+          "thresholdFormat": "Number",
+          "thresholdLabel": "watch",
+          "thresholdOperator": "<=",
+          "thresholdTableOptions": "",
+          "thresholdUnit": "",
+          "thresholdValue": 12
+        }
+      ]
+    },
+    {
+      "id": "w6",
+      "title": "pH - trend",
       "description": "",
       "panelTypes": "graph",
       "yAxisUnit": "none",
@@ -90,7 +556,7 @@
               "having": [],
               "functions": [],
               "orderBy": [],
-              "legend": "pH",
+              "legend": "pH - trend",
               "reduceTo": "last",
               "stepInterval": 60,
               "disabled": false
@@ -101,8 +567,8 @@
       }
     },
     {
-      "id": "w1",
-      "title": "EC (mS/cm)",
+      "id": "w7",
+      "title": "EC - trend",
       "description": "",
       "panelTypes": "graph",
       "yAxisUnit": "none",
@@ -140,207 +606,7 @@
               "having": [],
               "functions": [],
               "orderBy": [],
-              "legend": "EC (mS/cm)",
-              "reduceTo": "last",
-              "stepInterval": 60,
-              "disabled": false
-            }
-          ],
-          "queryFormulas": []
-        }
-      }
-    },
-    {
-      "id": "w2",
-      "title": "Water Temp",
-      "description": "",
-      "panelTypes": "graph",
-      "yAxisUnit": "celsius",
-      "query": {
-        "queryType": "builder",
-        "promql": [],
-        "clickhouse_sql": [],
-        "builder": {
-          "queryData": [
-            {
-              "dataSource": "metrics",
-              "queryName": "A",
-              "expression": "A",
-              "aggregateOperator": "avg",
-              "timeAggregation": "avg",
-              "spaceAggregation": "avg",
-              "aggregateAttribute": {
-                "key": "hydro.water_temp",
-                "dataType": "float64",
-                "type": "Gauge",
-                "isColumn": true
-              },
-              "filters": {
-                "op": "AND",
-                "items": []
-              },
-              "groupBy": [
-                {
-                  "key": "zone",
-                  "dataType": "string",
-                  "type": "tag",
-                  "isColumn": false
-                }
-              ],
-              "having": [],
-              "functions": [],
-              "orderBy": [],
-              "legend": "Water Temp",
-              "reduceTo": "last",
-              "stepInterval": 60,
-              "disabled": false
-            }
-          ],
-          "queryFormulas": []
-        }
-      }
-    },
-    {
-      "id": "w3",
-      "title": "Dissolved Oxygen (mg/L)",
-      "description": "",
-      "panelTypes": "graph",
-      "yAxisUnit": "none",
-      "query": {
-        "queryType": "builder",
-        "promql": [],
-        "clickhouse_sql": [],
-        "builder": {
-          "queryData": [
-            {
-              "dataSource": "metrics",
-              "queryName": "A",
-              "expression": "A",
-              "aggregateOperator": "avg",
-              "timeAggregation": "avg",
-              "spaceAggregation": "avg",
-              "aggregateAttribute": {
-                "key": "hydro.dissolved_oxygen",
-                "dataType": "float64",
-                "type": "Gauge",
-                "isColumn": true
-              },
-              "filters": {
-                "op": "AND",
-                "items": []
-              },
-              "groupBy": [
-                {
-                  "key": "zone",
-                  "dataType": "string",
-                  "type": "tag",
-                  "isColumn": false
-                }
-              ],
-              "having": [],
-              "functions": [],
-              "orderBy": [],
-              "legend": "Dissolved Oxygen (mg/L)",
-              "reduceTo": "last",
-              "stepInterval": 60,
-              "disabled": false
-            }
-          ],
-          "queryFormulas": []
-        }
-      }
-    },
-    {
-      "id": "w4",
-      "title": "Water Level",
-      "description": "",
-      "panelTypes": "graph",
-      "yAxisUnit": "percent",
-      "query": {
-        "queryType": "builder",
-        "promql": [],
-        "clickhouse_sql": [],
-        "builder": {
-          "queryData": [
-            {
-              "dataSource": "metrics",
-              "queryName": "A",
-              "expression": "A",
-              "aggregateOperator": "avg",
-              "timeAggregation": "avg",
-              "spaceAggregation": "avg",
-              "aggregateAttribute": {
-                "key": "hydro.water_level",
-                "dataType": "float64",
-                "type": "Gauge",
-                "isColumn": true
-              },
-              "filters": {
-                "op": "AND",
-                "items": []
-              },
-              "groupBy": [
-                {
-                  "key": "zone",
-                  "dataType": "string",
-                  "type": "tag",
-                  "isColumn": false
-                }
-              ],
-              "having": [],
-              "functions": [],
-              "orderBy": [],
-              "legend": "Water Level",
-              "reduceTo": "last",
-              "stepInterval": 60,
-              "disabled": false
-            }
-          ],
-          "queryFormulas": []
-        }
-      }
-    },
-    {
-      "id": "w5",
-      "title": "Hours to Empty",
-      "description": "",
-      "panelTypes": "value",
-      "yAxisUnit": "h",
-      "query": {
-        "queryType": "builder",
-        "promql": [],
-        "clickhouse_sql": [],
-        "builder": {
-          "queryData": [
-            {
-              "dataSource": "metrics",
-              "queryName": "A",
-              "expression": "A",
-              "aggregateOperator": "avg",
-              "timeAggregation": "avg",
-              "spaceAggregation": "avg",
-              "aggregateAttribute": {
-                "key": "hydro.reservoir.hours_to_empty",
-                "dataType": "float64",
-                "type": "Gauge",
-                "isColumn": true
-              },
-              "filters": {
-                "op": "AND",
-                "items": []
-              },
-              "groupBy": [
-                {
-                  "key": "zone",
-                  "dataType": "string",
-                  "type": "tag",
-                  "isColumn": false
-                }
-              ],
-              "having": [],
-              "functions": [],
-              "orderBy": [],
-              "legend": "Hours to Empty",
+              "legend": "EC - trend",
               "reduceTo": "last",
               "stepInterval": 60,
               "disabled": false
