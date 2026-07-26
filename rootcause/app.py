@@ -118,7 +118,9 @@ app = FastAPI(title="RootCause -- Hydroponic Mission Control", lifespan=lifespan
 @app.get("/", response_class=HTMLResponse)
 def index():
     """The bespoke Grow Room Mission Control operator screen (live gauges)."""
-    return _DASHBOARD_HTML
+    rt = getattr(app.state, "rt", None)
+    url = rt.settings.signoz_url if rt else "http://localhost:8080"
+    return _DASHBOARD_HTML.replace("__SIGNOZ_URL__", url)
 
 
 @app.get("/status")
