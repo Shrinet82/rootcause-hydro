@@ -41,20 +41,34 @@ _MISSING = (
 
 def _otlp_exporters(settings: Settings):
     """Import the OTLP exporters lazily so offline/smoke runs need no gRPC."""
+    ep = settings.otlp_endpoint
     if settings.otlp_protocol.startswith("http"):
         from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
         from opentelemetry.exporter.otlp.proto.http.metric_exporter import OTLPMetricExporter
         from opentelemetry.exporter.otlp.proto.http._log_exporter import OTLPLogExporter
+        # HTTP expects /v1/traces, etc. if ep is just the base URL
+        if not ep.endswith("/v1/traces") and ep.count("/") < 4:
+            return (
+                OTLPSpanExporter(endpoint=ep + "/v1/traces"),
+                OTLPMetricExporter(endpoint=ep + "/v1/metrics"),
+                OTLPLogExporter(endpoint=ep + "/v1/logs"),
+            )
+        return (
+            OTLPSpanExporter(endpoint=ep),
+            OTLPMetricExporter(endpoint=ep),
+            OTLPLogExporter(endpoint=ep),
+        )
     else:
         from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
         from opentelemetry.exporter.otlp.proto.grpc.metric_exporter import OTLPMetricExporter
         from opentelemetry.exporter.otlp.proto.grpc._log_exporter import OTLPLogExporter
-    ep = settings.otlp_endpoint
-    return (
-        OTLPSpanExporter(endpoint=ep),
-        OTLPMetricExporter(endpoint=ep),
-        OTLPLogExporter(endpoint=ep),
-    )
+        insecure = "http://" in ep or "localhost" in ep
+        ep = ep.replace("http://", "").replace("https://", "")
+        return (
+            OTLPSpanExporter(endpoint=ep, insecure=insecure),
+            OTLPMetricExporter(endpoint=ep, insecure=insecure),
+            OTLPLogExporter(endpoint=ep, insecure=insecure),
+        )
 
 
 class Telemetry:
