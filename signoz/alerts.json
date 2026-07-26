@@ -1,0 +1,58 @@
+[
+  {
+    "name": "pH out of band (high)",
+    "metric": "hydro.ph",
+    "op": ">",
+    "threshold": 6.5,
+    "severity": "warning",
+    "note": "nutrient lockout risk"
+  },
+  {
+    "name": "pH out of band (low)",
+    "metric": "hydro.ph",
+    "op": "<",
+    "threshold": 5.5,
+    "severity": "warning",
+    "note": "nutrient lockout risk"
+  },
+  {
+    "name": "Water temp critical",
+    "metric": "hydro.water_temp",
+    "op": ">",
+    "threshold": 24.0,
+    "severity": "critical",
+    "note": "root-rot / low O2"
+  },
+  {
+    "name": "Dissolved oxygen low",
+    "metric": "hydro.dissolved_oxygen",
+    "op": "<",
+    "threshold": 5.0,
+    "severity": "critical",
+    "note": "roots suffocating"
+  },
+  {
+    "name": "EC below safe band",
+    "metric": "hydro.ec",
+    "op": "<",
+    "threshold": 1.2,
+    "severity": "warning",
+    "note": "nutrient deficiency"
+  },
+  {
+    "name": "EC above safe band",
+    "metric": "hydro.ec",
+    "op": ">",
+    "threshold": 2.4,
+    "severity": "warning",
+    "note": "nutrient burn"
+  },
+  {
+    "name": "Reservoir dry soon",
+    "metric": "hydro.reservoir.hours_to_empty",
+    "op": "<",
+    "threshold": 3.0,
+    "severity": "critical",
+    "note": "PREDICTIVE - page before it's empty"
+  }
+]

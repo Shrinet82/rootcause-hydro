@@ -1,0 +1,185 @@
+{
+  "title": "RootCause - Plant Health SLO",
+  "description": "Time-in-band for the vital signs. Track your error budget.",
+  "tags": [
+    "rootcause",
+    "hydroponics",
+    "slo"
+  ],
+  "layout": [
+    {
+      "i": "w0",
+      "x": 0,
+      "y": 0,
+      "w": 6,
+      "h": 3
+    },
+    {
+      "i": "w1",
+      "x": 6,
+      "y": 0,
+      "w": 6,
+      "h": 3
+    },
+    {
+      "i": "w2",
+      "x": 0,
+      "y": 3,
+      "w": 6,
+      "h": 3
+    }
+  ],
+  "widgets": [
+    {
+      "id": "w0",
+      "title": "pH (SLO: 5.5-6.5)",
+      "description": "",
+      "panelTypes": "graph",
+      "yAxisUnit": "none",
+      "query": {
+        "queryType": "builder",
+        "promql": [],
+        "clickhouse_sql": [],
+        "builder": {
+          "queryData": [
+            {
+              "dataSource": "metrics",
+              "queryName": "A",
+              "expression": "A",
+              "aggregateOperator": "avg",
+              "timeAggregation": "avg",
+              "spaceAggregation": "avg",
+              "aggregateAttribute": {
+                "key": "hydro.ph",
+                "dataType": "float64",
+                "type": "Gauge",
+                "isColumn": true
+              },
+              "filters": {
+                "op": "AND",
+                "items": []
+              },
+              "groupBy": [
+                {
+                  "key": "zone",
+                  "dataType": "string",
+                  "type": "tag",
+                  "isColumn": false
+                }
+              ],
+              "having": [],
+              "functions": [],
+              "orderBy": [],
+              "legend": "pH (SLO: 5.5-6.5)",
+              "reduceTo": "last",
+              "stepInterval": 60,
+              "disabled": false
+            }
+          ],
+          "queryFormulas": []
+        }
+      }
+    },
+    {
+      "id": "w1",
+      "title": "Water Temp (SLO: <24C)",
+      "description": "",
+      "panelTypes": "graph",
+      "yAxisUnit": "celsius",
+      "query": {
+        "queryType": "builder",
+        "promql": [],
+        "clickhouse_sql": [],
+        "builder": {
+          "queryData": [
+            {
+              "dataSource": "metrics",
+              "queryName": "A",
+              "expression": "A",
+              "aggregateOperator": "avg",
+              "timeAggregation": "avg",
+              "spaceAggregation": "avg",
+              "aggregateAttribute": {
+                "key": "hydro.water_temp",
+                "dataType": "float64",
+                "type": "Gauge",
+                "isColumn": true
+              },
+              "filters": {
+                "op": "AND",
+                "items": []
+              },
+              "groupBy": [
+                {
+                  "key": "zone",
+                  "dataType": "string",
+                  "type": "tag",
+                  "isColumn": false
+                }
+              ],
+              "having": [],
+              "functions": [],
+              "orderBy": [],
+              "legend": "Water Temp (SLO: <24C)",
+              "reduceTo": "last",
+              "stepInterval": 60,
+              "disabled": false
+            }
+          ],
+          "queryFormulas": []
+        }
+      }
+    },
+    {
+      "id": "w2",
+      "title": "Dissolved O2 (SLO: >5 mg/L)",
+      "description": "",
+      "panelTypes": "graph",
+      "yAxisUnit": "none",
+      "query": {
+        "queryType": "builder",
+        "promql": [],
+        "clickhouse_sql": [],
+        "builder": {
+          "queryData": [
+            {
+              "dataSource": "metrics",
+              "queryName": "A",
+              "expression": "A",
+              "aggregateOperator": "avg",
+              "timeAggregation": "avg",
+              "spaceAggregation": "avg",
+              "aggregateAttribute": {
+                "key": "hydro.dissolved_oxygen",
+                "dataType": "float64",
+                "type": "Gauge",
+                "isColumn": true
+              },
+              "filters": {
+                "op": "AND",
+                "items": []
+              },
+              "groupBy": [
+                {
+                  "key": "zone",
+                  "dataType": "string",
+                  "type": "tag",
+                  "isColumn": false
+                }
+              ],
+              "having": [],
+              "functions": [],
+              "orderBy": [],
+              "legend": "Dissolved O2 (SLO: >5 mg/L)",
+              "reduceTo": "last",
+              "stepInterval": 60,
+              "disabled": false
+            }
+          ],
+          "queryFormulas": []
+        }
+      }
+    }
+  ],
+  "variables": {}
+}

@@ -1,0 +1,356 @@
+{
+  "title": "RootCause - Reservoir & Dosing",
+  "description": "Nutrient consumption, dosing activity and reservoir drain.",
+  "tags": [
+    "rootcause",
+    "hydroponics",
+    "dosing"
+  ],
+  "layout": [
+    {
+      "i": "w0",
+      "x": 0,
+      "y": 0,
+      "w": 6,
+      "h": 3
+    },
+    {
+      "i": "w1",
+      "x": 6,
+      "y": 0,
+      "w": 6,
+      "h": 3
+    },
+    {
+      "i": "w2",
+      "x": 0,
+      "y": 3,
+      "w": 6,
+      "h": 3
+    },
+    {
+      "i": "w3",
+      "x": 6,
+      "y": 3,
+      "w": 6,
+      "h": 3
+    },
+    {
+      "i": "w4",
+      "x": 0,
+      "y": 6,
+      "w": 6,
+      "h": 3
+    },
+    {
+      "i": "w5",
+      "x": 6,
+      "y": 6,
+      "w": 6,
+      "h": 3
+    }
+  ],
+  "widgets": [
+    {
+      "id": "w0",
+      "title": "EC burn-down (plants drinking)",
+      "description": "",
+      "panelTypes": "graph",
+      "yAxisUnit": "none",
+      "query": {
+        "queryType": "builder",
+        "promql": [],
+        "clickhouse_sql": [],
+        "builder": {
+          "queryData": [
+            {
+              "dataSource": "metrics",
+              "queryName": "A",
+              "expression": "A",
+              "aggregateOperator": "avg",
+              "timeAggregation": "avg",
+              "spaceAggregation": "avg",
+              "aggregateAttribute": {
+                "key": "hydro.ec",
+                "dataType": "float64",
+                "type": "Gauge",
+                "isColumn": true
+              },
+              "filters": {
+                "op": "AND",
+                "items": []
+              },
+              "groupBy": [
+                {
+                  "key": "zone",
+                  "dataType": "string",
+                  "type": "tag",
+                  "isColumn": false
+                }
+              ],
+              "having": [],
+              "functions": [],
+              "orderBy": [],
+              "legend": "EC burn-down (plants drinking)",
+              "reduceTo": "last",
+              "stepInterval": 60,
+              "disabled": false
+            }
+          ],
+          "queryFormulas": []
+        }
+      }
+    },
+    {
+      "id": "w1",
+      "title": "TDS (ppm)",
+      "description": "",
+      "panelTypes": "graph",
+      "yAxisUnit": "none",
+      "query": {
+        "queryType": "builder",
+        "promql": [],
+        "clickhouse_sql": [],
+        "builder": {
+          "queryData": [
+            {
+              "dataSource": "metrics",
+              "queryName": "A",
+              "expression": "A",
+              "aggregateOperator": "avg",
+              "timeAggregation": "avg",
+              "spaceAggregation": "avg",
+              "aggregateAttribute": {
+                "key": "hydro.tds",
+                "dataType": "float64",
+                "type": "Gauge",
+                "isColumn": true
+              },
+              "filters": {
+                "op": "AND",
+                "items": []
+              },
+              "groupBy": [
+                {
+                  "key": "zone",
+                  "dataType": "string",
+                  "type": "tag",
+                  "isColumn": false
+                }
+              ],
+              "having": [],
+              "functions": [],
+              "orderBy": [],
+              "legend": "TDS (ppm)",
+              "reduceTo": "last",
+              "stepInterval": 60,
+              "disabled": false
+            }
+          ],
+          "queryFormulas": []
+        }
+      }
+    },
+    {
+      "id": "w2",
+      "title": "Reservoir Volume (L)",
+      "description": "",
+      "panelTypes": "graph",
+      "yAxisUnit": "none",
+      "query": {
+        "queryType": "builder",
+        "promql": [],
+        "clickhouse_sql": [],
+        "builder": {
+          "queryData": [
+            {
+              "dataSource": "metrics",
+              "queryName": "A",
+              "expression": "A",
+              "aggregateOperator": "avg",
+              "timeAggregation": "avg",
+              "spaceAggregation": "avg",
+              "aggregateAttribute": {
+                "key": "hydro.reservoir_volume",
+                "dataType": "float64",
+                "type": "Gauge",
+                "isColumn": true
+              },
+              "filters": {
+                "op": "AND",
+                "items": []
+              },
+              "groupBy": [
+                {
+                  "key": "zone",
+                  "dataType": "string",
+                  "type": "tag",
+                  "isColumn": false
+                }
+              ],
+              "having": [],
+              "functions": [],
+              "orderBy": [],
+              "legend": "Reservoir Volume (L)",
+              "reduceTo": "last",
+              "stepInterval": 60,
+              "disabled": false
+            }
+          ],
+          "queryFormulas": []
+        }
+      }
+    },
+    {
+      "id": "w3",
+      "title": "Pump Flow (L/min)",
+      "description": "",
+      "panelTypes": "graph",
+      "yAxisUnit": "none",
+      "query": {
+        "queryType": "builder",
+        "promql": [],
+        "clickhouse_sql": [],
+        "builder": {
+          "queryData": [
+            {
+              "dataSource": "metrics",
+              "queryName": "A",
+              "expression": "A",
+              "aggregateOperator": "avg",
+              "timeAggregation": "avg",
+              "spaceAggregation": "avg",
+              "aggregateAttribute": {
+                "key": "hydro.pump_flow",
+                "dataType": "float64",
+                "type": "Gauge",
+                "isColumn": true
+              },
+              "filters": {
+                "op": "AND",
+                "items": []
+              },
+              "groupBy": [
+                {
+                  "key": "zone",
+                  "dataType": "string",
+                  "type": "tag",
+                  "isColumn": false
+                }
+              ],
+              "having": [],
+              "functions": [],
+              "orderBy": [],
+              "legend": "Pump Flow (L/min)",
+              "reduceTo": "last",
+              "stepInterval": 60,
+              "disabled": false
+            }
+          ],
+          "queryFormulas": []
+        }
+      }
+    },
+    {
+      "id": "w4",
+      "title": "CO2 (ppm)",
+      "description": "",
+      "panelTypes": "graph",
+      "yAxisUnit": "none",
+      "query": {
+        "queryType": "builder",
+        "promql": [],
+        "clickhouse_sql": [],
+        "builder": {
+          "queryData": [
+            {
+              "dataSource": "metrics",
+              "queryName": "A",
+              "expression": "A",
+              "aggregateOperator": "avg",
+              "timeAggregation": "avg",
+              "spaceAggregation": "avg",
+              "aggregateAttribute": {
+                "key": "hydro.co2",
+                "dataType": "float64",
+                "type": "Gauge",
+                "isColumn": true
+              },
+              "filters": {
+                "op": "AND",
+                "items": []
+              },
+              "groupBy": [
+                {
+                  "key": "zone",
+                  "dataType": "string",
+                  "type": "tag",
+                  "isColumn": false
+                }
+              ],
+              "having": [],
+              "functions": [],
+              "orderBy": [],
+              "legend": "CO2 (ppm)",
+              "reduceTo": "last",
+              "stepInterval": 60,
+              "disabled": false
+            }
+          ],
+          "queryFormulas": []
+        }
+      }
+    },
+    {
+      "id": "w5",
+      "title": "Light PPFD",
+      "description": "",
+      "panelTypes": "graph",
+      "yAxisUnit": "none",
+      "query": {
+        "queryType": "builder",
+        "promql": [],
+        "clickhouse_sql": [],
+        "builder": {
+          "queryData": [
+            {
+              "dataSource": "metrics",
+              "queryName": "A",
+              "expression": "A",
+              "aggregateOperator": "avg",
+              "timeAggregation": "avg",
+              "spaceAggregation": "avg",
+              "aggregateAttribute": {
+                "key": "hydro.light_ppfd",
+                "dataType": "float64",
+                "type": "Gauge",
+                "isColumn": true
+              },
+              "filters": {
+                "op": "AND",
+                "items": []
+              },
+              "groupBy": [
+                {
+                  "key": "zone",
+                  "dataType": "string",
+                  "type": "tag",
+                  "isColumn": false
+                }
+              ],
+              "having": [],
+              "functions": [],
+              "orderBy": [],
+              "legend": "Light PPFD",
+              "reduceTo": "last",
+              "stepInterval": 60,
+              "disabled": false
+            }
+          ],
+          "queryFormulas": []
+        }
+      }
+    }
+  ],
+  "variables": {}
+}
