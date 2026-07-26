@@ -206,7 +206,10 @@
           ],
           "queryFormulas": []
         }
-      }
+      },
+      "softMin": 5.0,
+      "softMax": 7.0,
+      "fillSpans": false
     },
     {
       "id": "w2",
@@ -256,7 +259,10 @@
           ],
           "queryFormulas": []
         }
-      }
+      },
+      "softMin": 15.0,
+      "softMax": 30.0,
+      "fillSpans": false
     },
     {
       "id": "w3",
@@ -306,7 +312,10 @@
           ],
           "queryFormulas": []
         }
-      }
+      },
+      "softMin": 0.0,
+      "softMax": 12.0,
+      "fillSpans": false
     }
   ],
   "variables": {}

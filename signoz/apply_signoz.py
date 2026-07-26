@@ -149,6 +149,14 @@ def _thresholds(specs):
     return out
 
 
+# y-axis headroom per metric so trend lines read as intentional charts
+RANGES = {
+    "hydro.ph": (5, 7), "hydro.ec": (0, 3), "hydro.water_temp": (15, 30),
+    "hydro.dissolved_oxygen": (0, 12), "hydro.reservoir_volume": (0, 100),
+    "hydro.co2": (0, 1300), "hydro.light_ppfd": (0, 400),
+}
+
+
 def _widget(idx, panel, with_thresholds=True):
     ptype = panel["type"]
     if ptype == "table":
@@ -173,6 +181,11 @@ def _widget(idx, panel, with_thresholds=True):
             "builder": {"queryData": queries, "queryFormulas": []},
         },
     }
+    if ptype == "graph":
+        rng = RANGES.get(panel.get("metric"))
+        if rng:
+            w["softMin"], w["softMax"] = float(rng[0]), float(rng[1])
+        w["fillSpans"] = False
     if with_thresholds and panel.get("thresholds"):
         w["thresholds"] = _thresholds(panel["thresholds"])
     return w

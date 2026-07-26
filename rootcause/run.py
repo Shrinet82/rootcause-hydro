@@ -8,7 +8,8 @@ import uvicorn
 
 def main() -> None:
     host = os.getenv("ROOTCAUSE_HOST", "0.0.0.0")
-    port = int(os.getenv("ROOTCAUSE_PORT", "8099"))
+    # Cloud platforms (Render/Fly/Railway) inject $PORT; fall back to our default.
+    port = int(os.getenv("PORT") or os.getenv("ROOTCAUSE_PORT", "8099"))
     uvicorn.run("rootcause.app:app", host=host, port=port, log_level="info")
 
 

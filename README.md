@@ -169,6 +169,18 @@ signoz/
 scripts/smoke_test.py
 ```
 
+## Deploy & share it
+
+- **Mission Control page → a public URL:** it's self-contained (renders the gauges with no
+  SigNoz), so deploy the `Dockerfile` to **Render** (`render.yaml` blueprint), **Fly.io**
+  (`fly.toml`), or any Docker host. Judges get a clickable page — gauges *and* live fault
+  buttons.
+- **SigNoz dashboards → share during judging:** tunnel your local SigNoz with
+  `cloudflared tunnel --url http://localhost:8080` (no signup, https).
+- **Fire the alerts:** step-by-step in [`signoz/ALERTS.md`](signoz/ALERTS.md).
+
+Full guide: [`DEPLOY.md`](DEPLOY.md).
+
 ## Roadmap
 
 - Multi-zone farm (per-zone SLOs, cross-zone correlation)

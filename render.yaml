@@ -1,0 +1,14 @@
+# One-click deploy of the Grow Room Mission Control page to Render.
+# New + -> Blueprint -> connect this repo. Render reads this file, builds the
+# Dockerfile, and gives you a public https URL in ~2 minutes.
+services:
+  - type: web
+    name: rootcause-mission-control
+    runtime: docker
+    plan: free
+    autoDeploy: true
+    envVars:
+      - key: ROOTCAUSE_DISABLE_OTLP
+        value: "1"          # self-contained; no SigNoz needed to render the gauges
+      - key: ROOTCAUSE_TICK_SECONDS
+        value: "3"

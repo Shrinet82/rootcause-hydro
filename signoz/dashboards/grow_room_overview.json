@@ -108,7 +108,7 @@
       },
       "thresholds": [
         {
-          "index": "7c3ef1f3",
+          "index": "0df861de",
           "keyIndex": 0,
           "moveThreshold": 0,
           "selectedGraph": "value",
@@ -121,7 +121,7 @@
           "thresholdValue": 6.5
         },
         {
-          "index": "2573efca",
+          "index": "895d4b93",
           "keyIndex": 0,
           "moveThreshold": 0,
           "selectedGraph": "value",
@@ -134,7 +134,7 @@
           "thresholdValue": 6.2
         },
         {
-          "index": "440b7802",
+          "index": "9099b2ec",
           "keyIndex": 0,
           "moveThreshold": 0,
           "selectedGraph": "value",
@@ -147,7 +147,7 @@
           "thresholdValue": 5.5
         },
         {
-          "index": "a1c8cb3d",
+          "index": "da95dda7",
           "keyIndex": 0,
           "moveThreshold": 0,
           "selectedGraph": "value",
@@ -205,7 +205,7 @@
       },
       "thresholds": [
         {
-          "index": "2a33424a",
+          "index": "82fee77b",
           "keyIndex": 0,
           "moveThreshold": 0,
           "selectedGraph": "value",
@@ -218,7 +218,7 @@
           "thresholdValue": 2.4
         },
         {
-          "index": "9ea6b247",
+          "index": "77abdd5a",
           "keyIndex": 0,
           "moveThreshold": 0,
           "selectedGraph": "value",
@@ -276,7 +276,7 @@
       },
       "thresholds": [
         {
-          "index": "f1d3ca64",
+          "index": "b8ffbdb7",
           "keyIndex": 0,
           "moveThreshold": 0,
           "selectedGraph": "value",
@@ -289,7 +289,7 @@
           "thresholdValue": 24
         },
         {
-          "index": "6b33bd51",
+          "index": "bef157bc",
           "keyIndex": 0,
           "moveThreshold": 0,
           "selectedGraph": "value",
@@ -347,7 +347,7 @@
       },
       "thresholds": [
         {
-          "index": "ab275da6",
+          "index": "b7a752e4",
           "keyIndex": 0,
           "moveThreshold": 0,
           "selectedGraph": "value",
@@ -360,7 +360,7 @@
           "thresholdValue": 5
         },
         {
-          "index": "584380e7",
+          "index": "de5d6ff1",
           "keyIndex": 0,
           "moveThreshold": 0,
           "selectedGraph": "value",
@@ -418,7 +418,7 @@
       },
       "thresholds": [
         {
-          "index": "3ef3cf46",
+          "index": "f30b8a3c",
           "keyIndex": 0,
           "moveThreshold": 0,
           "selectedGraph": "value",
@@ -431,7 +431,7 @@
           "thresholdValue": 20
         },
         {
-          "index": "fc640937",
+          "index": "8f726c3b",
           "keyIndex": 0,
           "moveThreshold": 0,
           "selectedGraph": "value",
@@ -489,7 +489,7 @@
       },
       "thresholds": [
         {
-          "index": "e975b49f",
+          "index": "60ec9250",
           "keyIndex": 0,
           "moveThreshold": 0,
           "selectedGraph": "value",
@@ -502,7 +502,7 @@
           "thresholdValue": 3
         },
         {
-          "index": "20e0629e",
+          "index": "97af764a",
           "keyIndex": 0,
           "moveThreshold": 0,
           "selectedGraph": "value",
@@ -564,7 +564,10 @@
           ],
           "queryFormulas": []
         }
-      }
+      },
+      "softMin": 5.0,
+      "softMax": 7.0,
+      "fillSpans": false
     },
     {
       "id": "w7",
@@ -614,7 +617,10 @@
           ],
           "queryFormulas": []
         }
-      }
+      },
+      "softMin": 0.0,
+      "softMax": 3.0,
+      "fillSpans": false
     }
   ],
   "variables": {}

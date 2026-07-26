@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.git/
+*.zip
+signoz/
+scripts/
+docs/
+.env

@@ -1,0 +1,17 @@
+# Deploy the Mission Control page to Fly.io:  flyctl launch --now  (or  flyctl deploy)
+app = "rootcause-hydro"
+primary_region = "sin"
+
+[build]
+
+[env]
+  ROOTCAUSE_DISABLE_OTLP = "1"
+  ROOTCAUSE_TICK_SECONDS = "3"
+  ROOTCAUSE_PORT = "8099"
+
+[http_service]
+  internal_port = 8099
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
