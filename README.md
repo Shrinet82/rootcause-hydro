@@ -24,13 +24,8 @@ You can review everything **without me present**:
 1. **Mission Control — zero login.** Open **http://20.120.242.78:8099/**. You'll see the farm
    live, and you can **click the fault buttons yourself** (`heatwave`, `pump_failure`, `leak`, …)
    to trigger real incidents and watch the vitals react.
-2. **SigNoz — shared read-only account.** Open **http://20.120.242.78:8080/** and sign in with
-   the **viewer** credentials below (VIEWER role — can view dashboards, traces, and alerts,
-   cannot edit):
-   ```
-   email:    judge@rootcause.demo
-   password: REDACTED
-   ```
+2. **SigNoz — shared read-only account.** Open **http://20.120.242.78:8080/**.
+   Read-only judge access available on request.
 3. **Always-on proof.** If the demo VM is asleep, the **[demo video](#-demo)** and the
    screenshots in this README show the full incident walkthrough.
 
